@@ -6,6 +6,56 @@
 </head>
 
 <body>
-<h3>テスト</h3>
+<h3>位置確認中…</h3>
+
+<script>
+async function main() {
+  try {
+    await liff.init({ liffId: "2010148763-2ip8aWbo" });
+
+    if (!liff.isLoggedIn()) {
+      liff.login();
+      return;
+    }
+
+    const profile = await liff.getProfile();
+
+    navigator.geolocation.getCurrentPosition(async (pos) => {
+
+      const lat = pos.coords.latitude;
+      const lng = pos.coords.longitude;
+
+      const res = await fetch("https://script.google.com/macros/s/AKfycby3-YKN7f8bJXadtbxX8DxXRuVbCZbJKcpLPc65LY6Pnalkj48FJdL2sJjpL8BbW_54/exec", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          type: "gps",
+          userId: profile.userId,
+          lat: lat,
+          lng: lng
+        })
+      });
+
+      const data = await res.json();
+
+      alert(data.result);
+
+      liff.closeWindow();
+
+    }, (err) => {
+      alert("GPS失敗：" + err.message);
+    });
+
+  } catch (e) {
+    alert("エラー：" + e.message);
+  }
+}
+
+main();
+</script>
+
 </body>
 </html>
+``
