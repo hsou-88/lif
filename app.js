@@ -25,6 +25,33 @@ async function loadMembers() {
   });
 }
 
+async function loadSchedule() {
+  const res = await fetch(API, {
+    method: "POST",
+    body: JSON.stringify({
+      action: "getSchedule",
+      token: TOKEN
+    })
+  });
+
+  const data = await res.json();
+
+  const container = document.getElementById("schedule");
+  container.innerHTML = "";
+
+  data.forEach(day => {
+    const div = document.createElement("div");
+
+    div.innerHTML = `
+      <strong>${day.date}</strong><br>
+      ${day.people.length > 0 ? day.people.join(", ") : "No bookings"}
+      <hr>
+    `;
+
+    container.appendChild(div);
+  });
+}
+
 async function reserve() {
   const data = {
     action: "reserve",
