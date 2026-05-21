@@ -1,61 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+style.css
+app.jsscript>
 </head>
 
 <body>
-<h3>位置確認中…</h3>
 
-<script>
-async function main() {
-  try {
-    await liff.init({ liffId: "2010148763-2ip8aWbo" });
+<h2>Cleaning Booking</h2>
 
-    if (!liff.isLoggedIn()) {
-      liff.login();
-      return;
-    }
+<select id="name"></select>
+<input id="room" readonly>
 
-    const profile = await liff.getProfile();
+<input type="date" id="date">
 
-    navigator.geolocation.getCurrentPosition(async (pos) => {
-
-      const lat = pos.coords.latitude;
-      const lng = pos.coords.longitude;
-
-      const res = await fetch("https://script.google.com/a/macros/shibaura-it.ac.jp/s/AKfycby3-YKN7f8bJXadtbxX8DxXRuVbCZbJKcpLPc65LY6Pnalkj48FJdL2sJjpL8BbW_54/exec", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          type: "gps",
-          userId: profile.userId,
-          lat: lat,
-          lng: lng
-        })
-      });
-
-      const data = await res.json();
-
-      alert(data.result);
-
-      liff.closeWindow();
-
-    }, (err) => {
-      alert("GPS失敗：" + err.message);
-    });
-
-  } catch (e) {
-    alert("エラー：" + e.message);
-  }
-}
-
-main();
-</script>
+<button onclick="reserve()">Reserve</button>
 
 </body>
 </html>
-``
