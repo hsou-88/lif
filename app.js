@@ -1,5 +1,5 @@
-const API = "YOUR_GAS_URL";
-const TOKEN = "YOUR_API_TOKEN";
+const API = "https://script.google.com/macros/s/AKfycbyya6gJDlbBMaYiqk0q276VL7FdMk9K0-S-8lOmr822A6roiEL6Vl3tvV3l7UyLJig/exec";
+const TOKEN = "abc123secret";
 
 async function loadMembers() {
   const res = await fetch(API, {
