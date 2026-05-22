@@ -1,4 +1,4 @@
-const API = "https://script.google.com/macros/s/AKfycbyya6gJDlbBMaYiqk0q276VL7FdMk9K0-S-8lOmr822A6roiEL6Vl3tvV3l7UyLJig/exec";
+const API = "https://script.google.com/macros/s/AKfycbwT-8g1R4iVIxsQ79z6QumZ-DCPVe9yJ-07UG7Xnh6OrGnzMkuz9X2LJk7tsQmdBWwA/exec";
 const TOKEN = "abc123secret";
 
 async function loadMembers() {
