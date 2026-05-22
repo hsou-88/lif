@@ -8,7 +8,6 @@ async function loadMembers() {
   });
 
   const members = await res.json();
-
   const select = document.getElementById("name");
 
   members.forEach(m => {
@@ -22,33 +21,6 @@ async function loadMembers() {
   select.addEventListener("change", e => {
     document.getElementById("room").value =
       e.target.selectedOptions[0].dataset.room;
-  });
-}
-
-async function loadSchedule() {
-  const res = await fetch(API, {
-    method: "POST",
-    body: JSON.stringify({
-      action: "getSchedule",
-      token: TOKEN
-    })
-  });
-
-  const data = await res.json();
-
-  const container = document.getElementById("schedule");
-  container.innerHTML = "";
-
-  data.forEach(day => {
-    const div = document.createElement("div");
-
-    div.innerHTML = `
-      <strong>${day.date}</strong><br>
-      ${day.people.length > 0 ? day.people.join(", ") : "No bookings"}
-      <hr>
-    `;
-
-    container.appendChild(div);
   });
 }
 
@@ -67,6 +39,20 @@ async function reserve() {
   });
 
   alert("Reserved!");
+}
+
+async function loadSchedule() {
+  const res = await fetch(API, {
+    method: "POST",
+    body: JSON.stringify({ action: "getSchedule", token: TOKEN })
+  });
+
+  const data = await res.json();
+  const div = document.getElementById("schedule");
+
+  data.forEach(d => {
+    div.innerHTML += `<p>${d.date}: ${d.people.join(", ")}</p>`;
+  });
 }
 
 window.onload = loadMembers;
